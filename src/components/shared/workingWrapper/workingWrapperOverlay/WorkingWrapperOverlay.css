@@ -1,0 +1,4 @@
+div.working-wrapper-overlay {
+  z-index: 2;
+  pointer-events: none;
+}

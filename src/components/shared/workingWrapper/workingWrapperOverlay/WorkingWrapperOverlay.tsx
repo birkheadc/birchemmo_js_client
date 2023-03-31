@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Spinner from '../../spinner/Spinner';
 import './WorkingWrapperOverlay.css'
 
 interface IWorkingWrapperOverlayProps {
@@ -8,7 +9,7 @@ interface IWorkingWrapperOverlayProps {
 function WorkingWrapperOverlay(props: IWorkingWrapperOverlayProps): JSX.Element {
   return (
     <div className='working-wrapper-overlay'>
-      LOADING
+      <Spinner />
     </div>
   );
 }

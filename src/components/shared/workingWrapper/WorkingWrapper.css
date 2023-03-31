@@ -1,0 +1,8 @@
+div.working-wrapper.not-working>div.working-wrapper-overlay {
+  opacity: 0;
+}
+
+div.working-wrapper.working>div.working-wrapper-contents {
+  opacity: 0.5;
+  pointer-events: none;
+}

@@ -2,11 +2,12 @@ body {
   background-color: grey;
 }
 
-div#root {
+div#react-root {
   border-style: solid;
   border-color: black;
   border-width: 3px;
   width: 800px;
   height: 600px;
   margin: 50px auto;
+  background-color: red;
 }

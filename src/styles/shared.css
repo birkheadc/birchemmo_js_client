@@ -55,3 +55,16 @@ form>button {
   border-color: var(--clr-black);
   padding: 5px;
 }
+
+.centered {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.clr-green {
+  color: var(--clr-green);
+}
+
+.clr-red {
+  color: var(--clr-red);
+}

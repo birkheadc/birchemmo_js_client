@@ -1,4 +1,5 @@
 import * as React from 'react';
+import SessionApi from './api/sessionApi';
 import './App.css'
 import LoginPage from './components/features/login/loginPage/LoginPage';
 
@@ -13,7 +14,7 @@ interface IAppProps {
 function App(props: IAppProps): JSX.Element {
   return (
     <div id='client-wrapper'>
-      <LoginPage />
+      <LoginPage login={SessionApi.login} />
     </div>
   );
 }

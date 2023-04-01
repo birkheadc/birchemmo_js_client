@@ -6,6 +6,12 @@ interface IWorkingWrapperContentsProps {
   children: React.ReactNode
 }
 
+/**
+ * The contents of the `WorkingWrapper` that are made less opaque and uninteractable when `isWorking` is true.
+ * @param {boolean} props.isWorking - Whether to fade out the contents.
+ * @param {React.ReactNode} props.children - The contents to show.
+ * @returns 
+ */
 function WorkingWrapperContents(props: IWorkingWrapperContentsProps): JSX.Element {
   return (
     <div className='working-wrapper-contents'>

@@ -14,7 +14,7 @@ interface ILoginPageProps {
 /**
  * Shows the login page for the game.
  * @param {(credentials: Credentials) => Promise<ApiResult<SessionToken>>} props.login - The function to be called when logging in.
- * @returns 
+ * @returns {JSX.Element}
  */
 function LoginPage(props: ILoginPageProps): JSX.Element {
 

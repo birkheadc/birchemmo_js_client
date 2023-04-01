@@ -10,7 +10,7 @@ interface ILoginFormProps {
 /**
  * Displays a form for requesting login credentials (username and password) from the user.
  * @param {(credentials: Credentials) => void} props.submit - The function to call when submitting the form.
- * @returns 
+ * @returns {JSX.Element}
  */
 function LoginForm(props: ILoginFormProps): JSX.Element {
 

@@ -13,7 +13,7 @@ interface IWorkingWrapperProps {
  * When `isWorking` is true, the contents becomes less opaque and uninteractable, and a loading spinner is displayed over it.
  * @param {boolean} props.isWorking - Whether the overlay should be shown or not.
  * @param {React.ReactNode} props.children - The contents to show when not working. `props.children` is automatically populated with whatever is placed inside this JSX element.
- * @returns 
+ * @returns {JSX.Element}
  */
 function WorkingWrapper(props: IWorkingWrapperProps): JSX.Element {
   return (

@@ -4,7 +4,25 @@
  * @param {string} username - User's username.
  * @param {string} password - User's password in plain-text.
  */
-export default interface Credentials {
+export interface Credentials {
   username: string,
-  password: string
+  password: string,
+  getAuthorization: () => string,
+  [key: string]: string | Function
+}
+
+export class Credentials {
+
+  username: string;
+  password: string;
+
+  constructor(username: string, password: string) {
+    this.username = username;
+    this.password = password;
+  }
+
+  getAuthorization = (): string => {
+    const buffer = Buffer.from(`${this.username}:${this.password}`, 'utf-8');
+    return 'Basic ' + buffer.toString('base64');
+  }
 }

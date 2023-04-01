@@ -1,6 +1,5 @@
 import * as React from 'react';
-import Credentials from '../../../../types/credentials/Credentials';
-import WorkingWrapper from '../../../shared/workingWrapper/WorkingWrapper';
+import {Credentials} from '../../../../types/credentials/Credentials';
 import './LoginForm.css'
 
 interface ILoginFormProps {
@@ -14,10 +13,7 @@ interface ILoginFormProps {
  */
 function LoginForm(props: ILoginFormProps): JSX.Element {
 
-  const [credentials, setCredentials] = React.useState<Credentials>({
-    username: '',
-    password: ''
-  });
+  const [credentials, setCredentials] = React.useState<Credentials>(new Credentials('', ''));
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -26,8 +22,8 @@ function LoginForm(props: ILoginFormProps): JSX.Element {
 
   const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
     let newCredentials = {...credentials};
-    newCredentials[event.currentTarget.id as keyof Credentials] = event.currentTarget.value;
-    setCredentials(newCredentials);
+    newCredentials[event.currentTarget.id] = event.currentTarget.value;
+    setCredentials(new Credentials(newCredentials.username, newCredentials.password));
   }
 
   return (

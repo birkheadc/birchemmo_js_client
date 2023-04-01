@@ -37,6 +37,10 @@ div.inline-label-input-wrapper {
   border-color: var(--clr-black);
 }
 
+div.inline-label-input-wrapper:hover, div.inline-label-input-wrapper:focus-within {
+  box-shadow: 4px 4px 2px var(--clr-black);
+}
+
 div.inline-label-input-wrapper>label {
   position: absolute;
   top: -10px;
@@ -49,11 +53,20 @@ div.inline-label-input-wrapper>input {
   padding: 5px;
 }
 
-form>button {
+button {
   border-style: solid;
   border-width: 2px;
   border-color: var(--clr-black);
   padding: 5px;
+
+  background-color: var(--clr-accent-a);
+  color: var(--clr-black);
+}
+
+button:hover, button:focus {
+  background-color: var(--clr-accent-b);
+  color: var(--clr-white);
+  box-shadow: 4px 4px 2px var(--clr-black);
 }
 
 .centered {

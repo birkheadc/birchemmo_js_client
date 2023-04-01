@@ -4,6 +4,7 @@ import SessionToken from "../../../types/sessionToken/SessionToken";
 
 export default async function login(credentials: Credentials): Promise<ApiResult<SessionToken>> {
   return {
-    wasSuccess: false
+    wasSuccess: false,
+    message: 'Fail'
   }
 }

@@ -22,7 +22,6 @@ function LoginPage(props: ILoginPageProps): JSX.Element {
   const [result, setResult] = React.useState<ApiResult<SessionToken> | null>(null);
 
   const login = async (credentials: Credentials) => {
-    console.log('Login with: ', credentials);
     setWorking(true);
     const result = await props.login(credentials);
     setResult(result);

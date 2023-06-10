@@ -1,6 +1,6 @@
 import * as React from 'react';
-import IApiResult from '../../../types/apiResult/ApiResult';
 import './ApiResultDisplay.css'
+import { IApiResult } from '../../../types/apiResult/ApiResult';
 
 interface IApiResultDisplayProps {
   apiResult: IApiResult<any> | null
@@ -17,7 +17,7 @@ function ApiResultDisplay(props: IApiResultDisplayProps): JSX.Element | null {
   if (props.apiResult.message == null) return null;
 
   return (
-    <span className={'api-result-display ' + (props.apiResult.wasSuccess ? 'clr-green' : 'clr-red')}>{props.apiResult.message}</span>
+    <span className={'api-result-display ' + (props.apiResult.isSuccess ? 'clr-green' : 'clr-red')}>{props.apiResult.message}</span>
   );
 }
 

@@ -9,7 +9,8 @@ import { ISessionToken } from '../../../types/sessionToken/SessionToken';
 import { IApiResult } from '../../../types/apiResult/ApiResult';
 
 interface ILoginPageProps {
-  authenticationService: AuthenticationService
+  authenticationService: AuthenticationService,
+  login: (token: ISessionToken) => void
 }
 
 /**
@@ -21,6 +22,12 @@ function LoginPage(props: ILoginPageProps): JSX.Element {
 
   const [isProcessing, setProcessing] = React.useState(false);
   const [result, setResult] = React.useState<IApiResult<ISessionToken> | null>(null);
+
+  React.useEffect(function loginWhenResultChangeIfSuccess() {
+    if (result && result.isSuccess && result.data) {
+      props.login(result.data);
+    }
+  }, [ result ]);
 
   const login = async (credentials: ICredentials) => {
     setProcessing(true);

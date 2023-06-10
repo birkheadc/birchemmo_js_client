@@ -1,4 +1,4 @@
-div.working-wrapper-overlay {
+div.processing-wrapper-overlay {
   z-index: 2;
   pointer-events: none;
 }

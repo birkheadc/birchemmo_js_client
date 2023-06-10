@@ -1,0 +1,6 @@
+export enum HttpStatusCode {
+  SUCCESS = 200,
+  UNAUTHORIZED = 401,
+  NOT_YET_IMPLEMENTED = 501,
+  SERVICE_UNAVAILABLE = 503,
+}

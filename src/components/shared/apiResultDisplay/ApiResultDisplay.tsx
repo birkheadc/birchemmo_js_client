@@ -1,14 +1,14 @@
 import * as React from 'react';
-import ApiResult from '../../../types/apiResult/ApiResult';
+import IApiResult from '../../../types/apiResult/ApiResult';
 import './ApiResultDisplay.css'
 
 interface IApiResultDisplayProps {
-  apiResult: ApiResult<any> | null
+  apiResult: IApiResult<any> | null
 }
 
 /**
  * Displays a message for a given ApiResult. If the ApiResult is null or the ApiResult does not contain a message, nothing is displayed.
- * @param {ApiResult<any> | null} props.apiResult - The ApiResult to display the message of.
+ * @param {IApiResult<any> | null} props.apiResult - The ApiResult to display the message of.
  * @returns {JSX.Element | null}
  */
 function ApiResultDisplay(props: IApiResultDisplayProps): JSX.Element | null {

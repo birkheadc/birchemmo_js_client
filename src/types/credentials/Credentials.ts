@@ -4,14 +4,14 @@
  * @param {string} username - User's username.
  * @param {string} password - User's password in plain-text.
  */
-export interface Credentials {
+export interface ICredentials {
   username: string,
   password: string,
   getAuthorization: () => string,
   [key: string]: string | Function
 }
 
-export class Credentials {
+export class Credentials implements ICredentials {
 
   username: string;
   password: string;
@@ -25,4 +25,6 @@ export class Credentials {
     const buffer = Buffer.from(`${this.username}:${this.password}`, 'utf-8');
     return 'Basic ' + buffer.toString('base64');
   }
+
+  [key: string]: string | Function;
 }

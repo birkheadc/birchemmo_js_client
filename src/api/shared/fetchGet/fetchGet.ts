@@ -1,9 +1,9 @@
-import ApiResult from "../../../types/apiResult/ApiResult";
-import { Credentials } from "../../../types/credentials/Credentials";
-import SessionToken from "../../../types/sessionToken/SessionToken";
+import { ApiResult, IApiResult } from "../../../types/apiResult/ApiResult";
+import { ICredentials } from "../../../types/credentials/Credentials";
+import { HttpStatusCode } from "../../../types/httpStatusCode/httpStatusCode";
+import { ISessionToken } from "../../../types/sessionToken/SessionToken";
 
-export default async function fetchGet<T>(credentials: Credentials | SessionToken, url: string): Promise<ApiResult<T>> {
-  console.log(credentials.getAuthorization());
+export default async function fetchGet<T>(credentials: ICredentials | ISessionToken, url: string): Promise<IApiResult<T>> {
   try {
     let response = await fetch(url, {
       method: 'GET',
@@ -11,32 +11,20 @@ export default async function fetchGet<T>(credentials: Credentials | SessionToke
         'Authorization': credentials.getAuthorization()
       }
     });
-    if (response.status !== 200) {
-      return {
-        wasSuccess: false,
-        message: 'Failed to connect to server. ' + response.statusText
-      }
+    if (isSuccess(response.status) === false) {
+      return new ApiResult<T>(response.status, null, 'Failed to fetch data from server.');
     }
     try {
-      console.log('Response: ', response);
-      let data: any = await response.json();
-      console.log(data);
-      return {
-        wasSuccess: true,
-        data: data,
-        message: 'Success! Logging in...'
-      }
+      let data: T = await response.json();
+      return new ApiResult<T>(response.status, data, null);
     } catch {
-      return {
-        wasSuccess: false,
-        message: 'Data was of unexpected type.'
-      }
+      return new ApiResult<T>(response.status, null, 'Data was of unexpected type.');
     }
-    
   } catch {
-    return {
-      wasSuccess: false,
-      message: 'Failed to connect to server.' 
-    }
+    return new ApiResult<T>(HttpStatusCode.SERVICE_UNAVAILABLE, null, 'Failed to connect to server.');
   }
+}
+
+function isSuccess(statusCode: number): boolean {
+  return (Math.floor(statusCode / 100)) === 2;
 }

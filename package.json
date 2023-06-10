@@ -5,8 +5,8 @@
   "main": "index.tsx",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server .",
-    "build": "webpack ."
+    "start": "webpack-dev-server . --config ./webpack/webpack.dev.js",
+    "build": "webpack . --config ./webpack/webpack.prod.js"
   },
   "author": "Colby Birkhead",
   "license": "ISC",
@@ -28,7 +28,8 @@
     "typescript": "^4.9.5",
     "webpack": "^5.76.2",
     "webpack-cli": "^5.0.1",
-    "webpack-dev-server": "^4.12.0"
+    "webpack-dev-server": "^4.12.0",
+    "webpack-merge": "^5.9.0"
   },
   "dependencies": {
     "react": "^18.2.0",

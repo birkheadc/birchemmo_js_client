@@ -1,21 +1,21 @@
-div.working-wrapper {
+div.processing-wrapper {
   display: grid;
   grid-template: 1fr / 1fr;
   place-items: center;
   width: fit-content;
 }
 
-div.working-wrapper>div {
+div.processing-wrapper>div {
   grid-column: 1 / 1;
   grid-row: 1 / 1;
   width: 100%;
 }
 
-div.working-wrapper.not-working>div.working-wrapper-overlay {
+div.processing-wrapper.not-processing>div.processing-wrapper-overlay {
   opacity: 0;
 }
 
-div.working-wrapper.working>div.working-wrapper-contents {
+div.processing-wrapper.processing>div.processing-wrapper-contents {
   opacity: 0.3;
   pointer-events: none;
   user-select: none;

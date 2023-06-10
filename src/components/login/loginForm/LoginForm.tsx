@@ -1,19 +1,19 @@
 import * as React from 'react';
-import {Credentials} from '../../../../types/credentials/Credentials';
 import './LoginForm.css'
+import { Credentials, ICredentials } from '../../../types/credentials/Credentials';
 
 interface ILoginFormProps {
-  submit: (credentials: Credentials) => void
+  submit: (credentials: ICredentials) => void
 }
 
 /**
  * Displays a form for requesting login credentials (username and password) from the user.
- * @param {(credentials: Credentials) => void} props.submit - The function to call when submitting the form.
+ * @param {(credentials: ICredentials) => void} props.submit - The function to call when submitting the form.
  * @returns {JSX.Element}
  */
 function LoginForm(props: ILoginFormProps): JSX.Element {
 
-  const [credentials, setCredentials] = React.useState<Credentials>(new Credentials('', ''));
+  const [credentials, setCredentials] = React.useState<ICredentials>(new Credentials('', ''));
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -28,7 +28,7 @@ function LoginForm(props: ILoginFormProps): JSX.Element {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2>Login</h2>
+      <h2>Please Login</h2>
       <div className='inline-label-input-wrapper'>
         <label htmlFor='username'>Username</label>
         <input id='username' onChange={handleChange} value={credentials.username}></input>

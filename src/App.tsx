@@ -1,26 +1,28 @@
 import * as React from 'react';
-import { ServicesContainer } from './api/servicesContainer/servicesContainer';
-import SessionApi from './api/sessionApi';
 import './App.css'
-import LoginPage from './components/features/login/loginPage/LoginPage';
+import LoginPage from './components/login/loginPage/LoginPage';
 
 import './styles/reset.css';
 import './styles/shared.css';
 import './styles/vars.css';
+import { Config } from './types/config/config';
+import AuthenticationService from './api/authentication/authenticationService';
 
 interface IAppProps {
-  
+  config: Config
 }
 
 /**
  * Runs the application.
- * 
  * @returns {JSX.Element}
  */
 function App(props: IAppProps): JSX.Element {
+
+  const authenticationService = new AuthenticationService(props.config);
+
   return (
     <div id='client-wrapper'>
-      <LoginPage login={SessionApi.login} />
+      <LoginPage authenticationService={authenticationService} />
     </div>
   );
 }

@@ -7,7 +7,15 @@ import { Config } from "../types/config/config";
 const COMMON_CONFIG: Config = {
   version: "0.0.1",
   environment: "null",
-  isMockAuthentication: false,
-  mockUsers: []
+  authentication: {
+    isMockAuthentication: false,
+    mock: {
+      users: [],
+      delayMS: 0
+    }
+  },
+  game: { 
+    serverUrl: ''
+  }
 };
 export default COMMON_CONFIG;

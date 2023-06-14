@@ -3,19 +3,21 @@ import ApiResultDisplay from '../../shared/apiResultDisplay/ApiResultDisplay';
 import ProcessingWrapper from '../../shared/processingWrapper/ProcessingWrapper';
 import LoginForm from '../loginForm/LoginForm';
 import './LoginPage.css'
-import AuthenticationService from '../../../api/authentication/authenticationService';
 import { ICredentials } from '../../../types/credentials/Credentials';
 import { ISessionToken } from '../../../types/sessionToken/SessionToken';
 import { IApiResult } from '../../../types/apiResult/ApiResult';
+import { AuthenticationConfig } from '../../../types/config/config';
+import authentication from '../../../api/authentication/authentication';
 
 interface ILoginPageProps {
-  authenticationService: AuthenticationService,
+  authenticationConfig: AuthenticationConfig,
   login: (token: ISessionToken) => void
 }
 
 /**
  * Shows the login page for the game.
-* @param {AuthenticationService} props.authenticationService The service to use to request a session token upon login.
+* @param {AuthenticationConfig} props.authenticationConfig Configuration for authentication.
+* @param {(ISessionToken) => void} props.login The function to call after receiving a session token, to signal the app to login.
 * @returns {JSX.Element}
  */
 function LoginPage(props: ILoginPageProps): JSX.Element {
@@ -31,7 +33,7 @@ function LoginPage(props: ILoginPageProps): JSX.Element {
 
   const login = async (credentials: ICredentials) => {
     setProcessing(true);
-    const result = await props.authenticationService.login(credentials);
+    const result = await authentication.login(props.authenticationConfig, credentials);
     setResult(result);
     setProcessing(false);
   }

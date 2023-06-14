@@ -16,7 +16,7 @@ export interface ISessionToken {
 
 export interface SessionTokenProfile {
   expires: Date,
-  username: string,
+  userId: string,
   role: Role
 }
 

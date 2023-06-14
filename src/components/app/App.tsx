@@ -4,8 +4,6 @@ import '../../styles/reset.css';
 import '../../styles/shared.css';
 import '../../styles/vars.css';
 
-
-import AuthenticationService from '../../api/authentication/authenticationService';
 import { Config } from '../../types/config/config';
 import LoginPage from '../login/loginPage/LoginPage';
 import GamePage from '../game/gamePage/GamePage';
@@ -26,18 +24,20 @@ enum ClientPage {
 * @returns {JSX.Element | null}
 */
 export default function Main(props: IMainProps): JSX.Element | null {
-
-  const authenticationService = new AuthenticationService(props.config);
-
   const [page, setPage] = React.useState<ClientPage>(ClientPage.LOGIN);
+  const [sessionToken, setSessionToken] = React.useState<ISessionToken | null>(null);
+
+  React.useEffect(function changeToGamePageWhenSessionToken() {
+    if (sessionToken) setPage(ClientPage.GAME);
+  }, [ sessionToken ]);
 
   const handleLogin = (token: ISessionToken) => {
-
+    setSessionToken(token);
   }
 
   const pageMap: Record<ClientPage, JSX.Element> = {
-    [ClientPage.LOGIN]: <LoginPage authenticationService={authenticationService} login={handleLogin} />,
-    [ClientPage.GAME]: <GamePage />
+    [ClientPage.LOGIN]: <LoginPage authenticationConfig={props.config.authentication} login={handleLogin} />,
+    [ClientPage.GAME]: <GamePage gameConfig={props.config.game} sessionToken={sessionToken} />
   };
 
   return (

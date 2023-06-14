@@ -8,6 +8,8 @@ div.full-page {
   gap: 1em;
   justify-content: baseline;
   align-items: center;
+  
+  background-color: white;
 }
 
 div.full-page>h1 {

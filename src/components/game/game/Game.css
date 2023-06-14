@@ -1,0 +1,8 @@
+div.world-wrapper {
+  border: solid 5px black;
+  padding: 10px;
+}
+
+div.world-cell {
+  border: solid 1px blue;
+}

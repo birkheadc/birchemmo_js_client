@@ -1,27 +1,25 @@
 import IChunk from "./Chunk/IChunk";
 import IGameState from "./IGameState";
 import IPawn from "./Pawn/IPawn";
+import IPawnsState from "./PawnsState/IPawnsState";
+import PawnsState from "./PawnsState/PawnsState";
+import IWorldState from "./WorldState/IWorldState";
+import WorldState from "./WorldState/WorldState";
 
 export default class GameState implements IGameState {
-  pawns: IPawn[] = [];
-  currentPawn: number | null = null;
-  visibleWorld: IChunk[] = [];
+  pawnsState: IPawnsState = new PawnsState();
+  worldState: IWorldState = new WorldState();
 
-  setPawns(pawns: IPawn[]) {
-    this.pawns = pawns;
+  setPawnsState(pawnsState: IPawnsState) {
+    this.pawnsState = pawnsState;
   }
 
-  setCurrentPawn(n: number | null) {
-    this.currentPawn = n;
-  }
-
-  setVisibleWorld(world: IChunk[]) {
-    this.visibleWorld = world;
+  setWorldState(worldState: IWorldState) {
+    this.worldState = worldState;
   }
 
   copyState(oldState: IGameState) {
-    this.setPawns(oldState.pawns);
-    this.setCurrentPawn(oldState.currentPawn);
-    this.setVisibleWorld(oldState.visibleWorld);
+    this.setPawnsState(oldState.pawnsState);
+    this.setWorldState(oldState.worldState);
   }
 }

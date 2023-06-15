@@ -4,6 +4,6 @@
 export enum FromServer {
   REQUEST_SESSION_TOKEN = "RequestSessionToken",
   CONFIRM_SESSION_TOKEN = "ConfirmSessionToken",
-  SEND_OWNED_PAWNS = "SendOwnedPawns",
-  SEND_WORLD = "SendWorld"
+  SEND_PAWNS_STATE = "SendPawnsState",
+  SEND_WORLD_STATE = "SendWorldState"
 }

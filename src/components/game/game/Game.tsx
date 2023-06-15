@@ -5,7 +5,9 @@ import { FromServer } from '../../../types/message/FromServer';
 import { ToServer } from '../../../types/message/ToServer';
 import IGameState from './GameState/IGameState';
 import GameState from './GameState/GameState';
-import IPawn from './GameState/Pawn/IPawn';
+import GameUI from './GameUI/GameUI';
+import GameView from './GameView/GameView';
+import IPawnsState from './GameState/PawnsState/IPawnsState';
 
 interface IGameProps {
   connection: HubConnection
@@ -23,19 +25,23 @@ export default function Game(props: IGameProps): JSX.Element | null {
   const [gameState, setGameState] = React.useState<IGameState>(new GameState());
 
   React.useEffect(function requestPawnsOnMount() {
-    connection.on(FromServer.SEND_OWNED_PAWNS, (pawns: IPawn[], currentPawn: number | null) => {
+    connection.on(FromServer.SEND_PAWNS_STATE, (pawnsState: IPawnsState) => {
       const newState = new GameState();
       newState.copyState(gameState);
-      newState.setPawns(pawns);
-      newState.setCurrentPawn(currentPawn);
+      newState.setPawnsState(pawnsState);
       setGameState(newState);
     });
-    connection.send(ToServer.REQUEST_OWNED_PAWNS);
+    connection.send(ToServer.REQUEST_PAWNS_STATE);
   }, []);
 
   return (
-    <div className='world-wrapper'>
-      Number of pawns: { gameState.pawns.length }
+    <div className='game-wrapper'>
+      <div className='game-wrapper-section'>
+        <GameUI gameState={gameState} />
+      </div>
+      <div className='game-wrapper-section'>
+        <GameView />
+      </div>
     </div>
   );
 }

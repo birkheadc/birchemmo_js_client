@@ -7,6 +7,13 @@ import { ToServer } from '../../../types/message/ToServer';
 import { FromServer } from '../../../types/message/FromServer';
 import Game from '../game/Game';
 
+enum ConnectionStatus {
+  INITIAL = "Waiting",
+  CONNECTING = "Connecting...",
+  CONNECTED = "Connected!",
+  ERROR = "Failed to connect to server."
+}
+
 interface IGamePageProps {
   sessionToken: ISessionToken | null,
   gameConfig: GameConfig
@@ -23,7 +30,10 @@ export default function GamePage(props: IGamePageProps): JSX.Element | null {
   const [isSessionConfirmed, setSessionConfirmed] = React.useState<boolean>(false);
   const [connection, setConnection] = React.useState<HubConnection | null>(null);
 
+  const [status, setStatus] = React.useState<ConnectionStatus>(ConnectionStatus.INITIAL);
+
   React.useEffect(function connectToServerOnMount() {
+    setStatus(ConnectionStatus.CONNECTING);
     const newConnection: HubConnection = new HubConnectionBuilder()
       .withUrl(props.gameConfig.serverUrl)
       .withAutomaticReconnect()
@@ -35,6 +45,7 @@ export default function GamePage(props: IGamePageProps): JSX.Element | null {
     if (connection == null) return;
     connection.start()
       .then(() => {
+        setStatus(ConnectionStatus.CONNECTED);
         connection.on(FromServer.REQUEST_SESSION_TOKEN, () => {
           connection.send(ToServer.SEND_SESSION_TOKEN, props.sessionToken);
         });
@@ -42,12 +53,17 @@ export default function GamePage(props: IGamePageProps): JSX.Element | null {
           setSessionConfirmed(isValid);
         })
       })
+      .catch((error) => {
+        setStatus(ConnectionStatus.ERROR);
+        console.log(`Error connecting to server: ${error}`);
+        setSessionConfirmed(false);
+      })
   }, [ connection ]);
 
   return (
     <div className='full-page'>
       <h1>GAME</h1>
-      <span>{ isSessionConfirmed ? 'Connected!' : 'Connecting...'}</span>
+      <span>{ status }</span>
       { connection != null && isSessionConfirmed ? <Game connection={connection} /> : null }
     </div>
   );

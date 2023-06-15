@@ -3,6 +3,6 @@
  */
 export enum ToServer {
   SEND_SESSION_TOKEN = "SendSessionToken",
-  REQUEST_OWNED_PAWNS = "RequestOwnedPawns",
-  REQUEST_WORLD = "RequestWorld"
+  REQUEST_PAWNS_STATE = "RequestPawnsState",
+  REQUEST_WORLD_STATE = "RequestWorldState"
 }

@@ -1,14 +1,14 @@
 import IChunk from "./Chunk/IChunk";
 import IPawn from "./Pawn/IPawn";
+import IPawnsState from "./PawnsState/IPawnsState";
+import IWorldState from "./WorldState/IWorldState";
 
 export default interface IGameState {
-  pawns: IPawn[],
-  currentPawn: number | null,
-  visibleWorld: IChunk[],
+  pawnsState: IPawnsState,
+  worldState: IWorldState,
 
-  setPawns: (pawns: IPawn[]) => void,
-  setCurrentPawn: (n: number | null) => void,
-  setVisibleWorld: (chunks: IChunk[]) => void,
+  setPawnsState: (pawnsState: IPawnsState) => void,
+  setWorldState: (worldState: IWorldState) => void,
 
   copyState: (oldState: IGameState) => void
 }

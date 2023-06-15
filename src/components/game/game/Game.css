@@ -1,8 +1,13 @@
-div.world-wrapper {
+div.game-wrapper {
   border: solid 5px black;
   padding: 10px;
+
+  display: grid;
+  grid-template: 1fr / 1fr;
+  place-items: center;
 }
 
-div.world-cell {
-  border: solid 1px blue;
+div.game-wrapper-section {
+  grid-column: 1 / 1;
+  grid-row: 1 / 1;
 }

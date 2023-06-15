@@ -10,11 +10,11 @@ const DEV_CONFIG: Config = {
     isMockAuthentication: true,
     mock: {
       users: [
-        { id: '00', username: 'super', password: 'password', role: Role.SUPER_ADMIN },
-        { id: '01', username: 'admin', password: 'password', role: Role.ADMIN },
-        { id: '02', username: 'user', password: 'password', role: Role.VALIDATED_USER },
-        { id: '03', username: 'unvalidated', password: 'password', role: Role.UNVALIDATED_USER },
-        { id: '04', username: 'visitor', password: 'password', role: Role.VISITOR }
+        { id: '00000000-0000-0000-0000-000000000001', username: 'super', password: 'password', role: Role.SUPER_ADMIN },
+        { id: '00000000-0000-0000-0000-000000000002', username: 'admin', password: 'password', role: Role.ADMIN },
+        { id: '00000000-0000-0000-0000-000000000003', username: 'user', password: 'password', role: Role.VALIDATED_USER },
+        { id: '00000000-0000-0000-0000-000000000004', username: 'unvalidated', password: 'password', role: Role.UNVALIDATED_USER },
+        { id: '00000000-0000-0000-0000-000000000005', username: 'visitor', password: 'password', role: Role.VISITOR }
       ],
       delayMS: 500
     }

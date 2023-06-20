@@ -1,8 +1,8 @@
 import * as React from 'react';
 import './GamePage.css'
 import { ISessionToken } from '../../../types/sessionToken/SessionToken';
-import { GameConfig } from '../../../types/config/config';
-import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
+import { AuthenticationConfig, GameConfig } from '../../../types/config/config';
+import { HubConnection, HubConnectionBuilder, MessageHeaders } from '@microsoft/signalr';
 import { ToServer } from '../../../types/message/ToServer';
 import { FromServer } from '../../../types/message/FromServer';
 import Game from '../game/Game';
@@ -15,48 +15,41 @@ enum ConnectionStatus {
 }
 
 interface IGamePageProps {
-  sessionToken: ISessionToken | null,
+  sessionToken: string,
   gameConfig: GameConfig
 }
 
 /**
 * The page that displays the game.
-* @param {ISessionToken | null} props.sessionToken The session token for the current user, assumed to be validated.
+* @param {string} props.sessionToken The session token for the current user, assumed to be validated.
 * @param {GameConfig} props.gameConfig How the game should be configured.
 * @returns {JSX.Element | null}
 */
 export default function GamePage(props: IGamePageProps): JSX.Element | null {
 
-  const [isSessionConfirmed, setSessionConfirmed] = React.useState<boolean>(false);
   const [connection, setConnection] = React.useState<HubConnection | null>(null);
 
   const [status, setStatus] = React.useState<ConnectionStatus>(ConnectionStatus.INITIAL);
 
-  React.useEffect(function connectToServerOnMount() {
+  React.useEffect(function connectToAuthenticationServerOnMount() {
     setStatus(ConnectionStatus.CONNECTING);
+    console.log(`Sending token: ${props.sessionToken}`);
     const newConnection: HubConnection = new HubConnectionBuilder()
-      .withUrl(props.gameConfig.serverUrl)
+      .withUrl(props.gameConfig.serverUrl, { accessTokenFactory: () => props.sessionToken })
       .withAutomaticReconnect()
       .build();
     setConnection(newConnection);
-  }, []);
+  }, [ props.sessionToken, props.gameConfig ]);
 
-  React.useEffect(function setupConnection() {
+  React.useEffect(function authenticateConnection() {
     if (connection == null) return;
     connection.start()
       .then(() => {
         setStatus(ConnectionStatus.CONNECTED);
-        connection.on(FromServer.REQUEST_SESSION_TOKEN, () => {
-          connection.send(ToServer.SEND_SESSION_TOKEN, props.sessionToken);
-        });
-        connection.on(FromServer.CONFIRM_SESSION_TOKEN, (isValid: boolean) => {
-          setSessionConfirmed(isValid);
-        })
       })
       .catch((error) => {
         setStatus(ConnectionStatus.ERROR);
         console.log(`Error connecting to server: ${error}`);
-        setSessionConfirmed(false);
       })
   }, [ connection ]);
 
@@ -64,7 +57,7 @@ export default function GamePage(props: IGamePageProps): JSX.Element | null {
     <div className='full-page'>
       <h1>GAME</h1>
       <span>{ status }</span>
-      { connection != null && isSessionConfirmed ? <Game connection={connection} /> : null }
+      { connection != null && status == ConnectionStatus.CONNECTED ? <Game connection={connection} /> : null }
     </div>
   );
 }

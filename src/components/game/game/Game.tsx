@@ -37,7 +37,7 @@ export default function Game(props: IGameProps): JSX.Element | null {
   return (
     <div className='game-wrapper'>
       <div className='game-wrapper-section'>
-        <GameUI gameState={gameState} />
+        <GameUI connection={connection} gameState={gameState} />
       </div>
       <div className='game-wrapper-section'>
         <GameView />

@@ -1,5 +1,3 @@
-import IChunk from "./Chunk/IChunk";
-import IPawn from "./Pawn/IPawn";
 import IPawnsState from "./PawnsState/IPawnsState";
 import IWorldState from "./WorldState/IWorldState";
 

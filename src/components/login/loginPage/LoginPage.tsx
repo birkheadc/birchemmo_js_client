@@ -11,7 +11,7 @@ import authentication from '../../../api/authentication/authentication';
 
 interface ILoginPageProps {
   authenticationConfig: AuthenticationConfig,
-  login: (token: ISessionToken) => void
+  login: (token: string) => void
 }
 
 /**
@@ -23,7 +23,7 @@ interface ILoginPageProps {
 function LoginPage(props: ILoginPageProps): JSX.Element {
 
   const [isProcessing, setProcessing] = React.useState(false);
-  const [result, setResult] = React.useState<IApiResult<ISessionToken> | null>(null);
+  const [result, setResult] = React.useState<IApiResult<string | null> | null>(null);
 
   React.useEffect(function loginWhenResultChangeIfSuccess() {
     if (result && result.isSuccess && result.data) {

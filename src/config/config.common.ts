@@ -11,8 +11,11 @@ const COMMON_CONFIG: Config = {
     isMockAuthentication: false,
     mock: {
       users: [],
+      jwtSecretKey: '',
       delayMS: 0
-    }
+    },
+    loginServerUrl: "",
+    authenticationServerUrl: ""
   },
   game: { 
     serverUrl: ''

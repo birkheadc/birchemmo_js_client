@@ -11,8 +11,11 @@ export interface AuthenticationConfig {
   isMockAuthentication: boolean,
   mock: {
     users: { id: string, username: string, password: string, role: Role }[],
+    jwtSecretKey: string,
     delayMS: number
-  }
+  },
+  loginServerUrl: string,
+  authenticationServerUrl: string
 }
 
 export interface GameConfig {
